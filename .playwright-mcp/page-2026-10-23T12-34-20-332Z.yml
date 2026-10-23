@@ -1,0 +1,17 @@
+- generic [ref=e7]:
+  - generic [ref=e8]:
+    - generic [ref=e9]:
+      - img "isotopiq" [ref=e12]
+      - paragraph [ref=e13]: MS & Isotope Studio — sign in to continue
+    - generic [ref=e17]:
+      - generic [ref=e18]:
+        - generic [ref=e19]: Email
+        - textbox "you@lab.org" [active] [ref=e24]
+      - generic [ref=e25]:
+        - generic [ref=e26]: Password
+        - generic [ref=e27]:
+          - textbox "••••••••••••" [ref=e31]
+          - button [ref=e32]
+      - button "Sign in" [ref=e36]
+      - button "Forgot your password?" [ref=e37]
+  - paragraph [ref=e38]: Access is provisioned by an administrator — there is no public sign-up.

@@ -1,0 +1,408 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e7]:
+        - img "isotopiq" [ref=e8]
+        - generic [ref=e9]: MS & Isotope Studio
+      - generic [ref=e10]:
+        - generic [ref=e11]:
+          - strong [ref=e12]: "1500"
+          - text: scans
+        - generic [ref=e13]: •
+        - generic [ref=e14]:
+          - strong [ref=e15]: 300s
+          - text: run
+        - generic [ref=e16]: •
+        - strong [ref=e18]: ~935 KB
+      - generic [ref=e19]:
+        - button "Project" [ref=e20] [cursor=pointer]
+        - button "Wizard" [ref=e24] [cursor=pointer]
+        - button "Sim Lab" [ref=e29] [cursor=pointer]
+        - button "Demos" [ref=e34] [cursor=pointer]
+        - button "Method" [ref=e42] [cursor=pointer]
+        - button "Isotope Tracing" [ref=e45] [cursor=pointer]
+        - button "Batch Generator" [ref=e51] [cursor=pointer]
+        - button "MS/MS Studio" [ref=e56] [cursor=pointer]
+        - button "Std Curve" [ref=e60] [cursor=pointer]
+        - button "ICEBERG MS2" [ref=e65] [cursor=pointer]
+        - button "S/N Simulator" [ref=e69] [cursor=pointer]
+        - button "Mass Defect" [ref=e73] [cursor=pointer]
+        - button "Peak Groups" [ref=e78] [cursor=pointer]
+        - button "Upload CSV" [ref=e83] [cursor=pointer]
+        - button "Inspect Code" [ref=e88] [cursor=pointer]
+        - button "Light" [ref=e94] [cursor=pointer]
+        - button "Export Data" [ref=e102] [cursor=pointer]
+        - button "A Administrator" [ref=e108]:
+          - generic [ref=e109]: A
+          - generic [ref=e110]: Administrator
+  - main [ref=e113]:
+    - generic [ref=e114]:
+      - generic [ref=e121]:
+        - generic [ref=e122]:
+          - generic [ref=e123]: Workspace
+          - generic [ref=e124]: 3 features
+          - generic [ref=e125]: Thermo Scientific Orbitrap Exploris 480 (ESI+)
+          - generic [ref=e126]: 0 Groups
+        - paragraph [ref=e130]: 3 of 3 features enabled for signal generation.
+      - generic [ref=e131]:
+        - button "Split View" [ref=e132]
+        - button "Chromatogram Only" [ref=e133]
+        - button "Spectrum Only" [ref=e134]
+      - generic [ref=e135]:
+        - button "Clear Peaks" [ref=e136] [cursor=pointer]
+        - button "Reset All" [ref=e137] [cursor=pointer]
+    - generic [ref=e138]:
+      - generic [ref=e139]:
+        - generic [ref=e140]:
+          - generic [ref=e141]:
+            - generic [ref=e142]: Chromatographic Elution Profile
+            - generic [ref=e146]:
+              - generic [ref=e147]: "Selected RT:"
+              - generic [ref=e148]: 0.75 min
+              - generic [ref=e149]: (45.0s)
+          - generic [ref=e150]:
+            - generic [ref=e151]:
+              - button "TIC" [ref=e152]
+              - button "XICs" [ref=e153]
+              - button "Fill" [ref=e154]
+            - generic [ref=e159]:
+              - button "min" [ref=e160]
+              - button "sec" [ref=e161]
+            - generic [ref=e162]:
+              - button "Zoom In (or scroll up / drag a band on the chart)" [ref=e163]
+              - button "Zoom Out (or scroll down)" [ref=e167]
+              - button "Reset Zoom (or double-click the chart)" [ref=e171]
+              - generic [ref=e175]: drag to zoom · dbl-click resets
+        - img [ref=e177]:
+          - generic "Weak Analyte" [ref=e186]
+          - generic [ref=e192]: "0"
+          - generic [ref=e193]: 13k
+          - generic [ref=e194]: 25k
+          - generic [ref=e195]: 38k
+          - generic [ref=e196]: 50k
+          - generic [ref=e197]: 0.00 min
+          - generic [ref=e198]: 0.71 min
+          - generic [ref=e199]: 1.43 min
+          - generic [ref=e200]: 2.14 min
+          - generic [ref=e201]: 2.86 min
+          - generic [ref=e202]: 3.57 min
+          - generic [ref=e203]: 4.29 min
+          - generic [ref=e204]: 5.00 min
+          - generic [ref=e205]: Retention Time (minutes)
+          - generic [ref=e206]: Intensity (counts)
+        - generic [ref=e207]:
+          - generic [ref=e208]:
+            - generic [ref=e209]: "Chromatographic Peaks:"
+            - 'generic "Jump to Weak Analyte apex (RT: 5.00 min, Area: 5.65e+5)" [ref=e210] [cursor=pointer]':
+              - generic [ref=e212]: Weak Analyte
+              - generic [ref=e213]: 200.05 m/z
+            - 'generic "Jump to Mid Analyte apex (RT: 7.00 min, Area: 3.19e+4)" [ref=e214] [cursor=pointer]':
+              - generic [ref=e216]: Mid Analyte
+              - generic [ref=e217]: 200.05 m/z
+            - 'generic "Jump to Strong Analyte apex (RT: 9.00 min, Area: 3.19e+4)" [ref=e218] [cursor=pointer]':
+              - generic [ref=e220]: Strong Analyte
+              - generic [ref=e221]: 200.05 m/z
+          - generic [ref=e222]:
+            - generic [ref=e223]: "Resolutions (Rs):"
+            - generic [ref=e224]:
+              - 'generic "Weak Analyte vs Mid Analyte: Rs = 5.89" [ref=e225]': Rs 5.89
+              - 'generic "Mid Analyte vs Strong Analyte: Rs = 5.89" [ref=e226]': Rs 5.89
+      - generic [ref=e227]:
+        - generic [ref=e228]:
+          - generic [ref=e229]:
+            - generic [ref=e232]: Isotopologue Distribution per Sample
+            - generic [ref=e233]: 3 samples · 1 isotopologues
+          - button "Absolute" [ref=e235] [cursor=pointer]
+        - img [ref=e242]:
+          - generic [ref=e243]: "0"
+          - generic [ref=e245]: 11.1k
+          - generic [ref=e247]: 22.1k
+          - generic [ref=e249]: 33.2k
+          - generic [ref=e251]: 44.3k
+          - generic [ref=e253]:
+            - generic "Weak Analyte — M m/z 200.0500 · 44.3k (100.0%)" [ref=e254]
+            - generic [ref=e255]: 44.3k
+            - generic [ref=e256]: Weak Analyte
+          - generic [ref=e257]:
+            - generic "Mid Analyte — M m/z 200.0500 · 2.5k (100.0%)" [ref=e258]
+            - generic [ref=e259]: 2.5k
+            - generic [ref=e260]: Mid Analyte
+          - generic [ref=e261]:
+            - generic "Strong Analyte — M m/z 200.0500 · 2.5k (100.0%)" [ref=e262]
+            - generic [ref=e263]: 2.5k
+            - generic [ref=e264]: Strong Analyte
+          - generic [ref=e265]: Counts
+        - generic [ref=e266]:
+          - generic [ref=e267]:
+            - generic [ref=e268]: Isotopologues
+            - button "M" [ref=e272] [cursor=pointer]
+          - generic [ref=e274]:
+            - generic [ref=e275]: Samples
+            - button "Weak Analyte" [ref=e276] [cursor=pointer]
+            - button "Mid Analyte" [ref=e278] [cursor=pointer]
+            - button "Strong Analyte" [ref=e280] [cursor=pointer]
+      - generic [ref=e282]:
+        - generic [ref=e283]:
+          - generic [ref=e284]:
+            - generic [ref=e285]: mzML Spectrum Graph
+            - generic [ref=e288]:
+              - generic [ref=e289]: MS1
+              - generic [ref=e290]: "Scan #226 (45.0s)"
+              - generic [ref=e291]:
+                - button "Previous Scan" [ref=e292]
+                - button "Next Scan" [ref=e295]
+          - generic [ref=e298]:
+            - generic [ref=e299]:
+              - button "Rel %" [ref=e300]
+              - button "Absolute" [ref=e301]
+            - generic [ref=e302]:
+              - button "Zoom In m/z (or scroll up / drag a band on the plot)" [ref=e303]
+              - button "Zoom Out m/z (or scroll down)" [ref=e307]
+              - button "Reset Mass Range (or double-click the plot)" [ref=e311]
+              - generic [ref=e315]: drag to zoom · dbl-click resets
+        - img [ref=e317]:
+          - generic [ref=e320] [cursor=pointer]: "102.055"
+          - generic [ref=e327] [cursor=pointer]: "149.023"
+          - generic [ref=e333] [cursor=pointer]: "279.159"
+          - generic [ref=e339] [cursor=pointer]: "391.284"
+          - generic [ref=e345]: 0%
+          - generic [ref=e346]: 25%
+          - generic [ref=e347]: 50%
+          - generic [ref=e348]: 75%
+          - generic [ref=e349]: 100%
+          - generic [ref=e350]: "100.0"
+          - generic [ref=e351]: "228.6"
+          - generic [ref=e352]: "357.1"
+          - generic [ref=e353]: "485.7"
+          - generic [ref=e354]: "614.3"
+          - generic [ref=e355]: "742.9"
+          - generic [ref=e356]: "871.4"
+          - generic [ref=e357]: "1000.0"
+          - generic [ref=e358]: Mass-to-Charge Ratio (m/z)
+          - generic [ref=e359]: Relative Abundance (%)
+        - generic [ref=e360]:
+          - generic [ref=e361]:
+            - generic [ref=e362]: "Defined Peak Groups:"
+            - generic [ref=e363]: No groups configured
+          - generic [ref=e364]:
+            - generic [ref=e365]: "Inspect Feature:"
+            - 'button "Weak Analyte: 200.05" [ref=e366]'
+            - 'button "Mid Analyte: 200.05" [ref=e367]'
+            - 'button "Strong Analyte: 200.05" [ref=e368]'
+      - generic [ref=e369]:
+        - generic [ref=e370]:
+          - generic [ref=e377]:
+            - generic [ref=e378]:
+              - generic [ref=e379]: Theoretical Isotopic Distribution & Predictive Overlay
+              - generic [ref=e380]: Overlay Active
+            - paragraph [ref=e381]: Calculates fine isotopic distribution from chemical formula using IUPAC isotopic probabilities.
+          - generic [ref=e382]:
+            - button "Overlay On" [ref=e383] [cursor=pointer]
+            - button [ref=e388]
+        - generic [ref=e392]:
+          - generic [ref=e393]:
+            - generic [ref=e394]:
+              - text: Chemical Formula (Hill system notation)
+              - 'img "Help: Chemical Formula" [ref=e395]'
+            - textbox "e.g. C8H10N4O2, C15H10O7, C6H5Cl" [ref=e399]
+          - generic [ref=e400]:
+            - generic [ref=e401]:
+              - text: Ionization / Adduct
+              - 'img "Help: Ionization / Adduct" [ref=e402]'
+            - combobox [ref=e406]:
+              - option "[M+H]+ (Protonated, +1.0073)" [selected]
+              - option "[M+Na]+ (Sodium, +21.9820)"
+              - option "[M+K]+ (Potassium, +38.9637)"
+              - option "[M+NH4]+ (Ammonium, +17.0265)"
+              - option "[M+2H]2+ (Doubly charged)"
+              - option "[M]+. (Radical cation, EI)"
+              - option "[M-H]- (Deprotonated, -1.0073)"
+              - option "[M+HCOO]- (Formate adduct)"
+          - generic [ref=e407]:
+            - generic [ref=e408]:
+              - text: Overlay Color
+              - 'img "Help: Overlay Color" [ref=e409]'
+            - generic [ref=e413]:
+              - textbox [ref=e414] [cursor=pointer]: "#fbbf24"
+              - textbox [ref=e415]: "#fbbf24"
+          - generic [ref=e416]:
+            - generic [ref=e417]:
+              - text: Sync from Feature
+              - 'img "Help: Sync from Feature" [ref=e418]'
+            - combobox [ref=e422]:
+              - option "Select feature..." [selected]
+              - option "Weak Analyte"
+              - option "Mid Analyte"
+              - option "Strong Analyte"
+    - generic [ref=e423]:
+      - generic [ref=e424]:
+        - generic [ref=e425]:
+          - heading "Defined Peaks & Quantitative Features" [level=3] [ref=e431]
+          - generic [ref=e432]: 3 / 3 active
+          - generic [ref=e433]:
+            - text: "Total Integrated Area:"
+            - strong [ref=e434]: "6.29e+5"
+            - text: counts·s
+        - generic [ref=e435]:
+          - generic [ref=e436]:
+            - generic [ref=e437]: "Scale Areas:"
+            - button "0.5×" [ref=e438]
+            - button "1.5×" [ref=e439]
+            - button "2.0×" [ref=e440]
+            - button "Auto-Space RT" [ref=e441]
+          - button "Isotope Tracing" [ref=e442] [cursor=pointer]
+          - button "MS/MS Studio" [ref=e448] [cursor=pointer]
+          - button "S/N Simulator" [ref=e452] [cursor=pointer]
+          - button "Manage Groups (0)" [ref=e456] [cursor=pointer]
+          - button "Upload CSV" [ref=e461] [cursor=pointer]
+          - button "Add Peak Feature" [ref=e466] [cursor=pointer]
+      - table [ref=e470]:
+        - rowgroup [ref=e471]:
+          - row [ref=e472]:
+            - columnheader "Select all shown" [ref=e473]:
+              - checkbox [ref=e474] [cursor=pointer]
+            - columnheader [ref=e475]:
+              - text: Active
+              - generic "Drag to resize column · double-click to reset" [ref=e476]
+            - columnheader "Analyte" [ref=e478]
+            - columnheader [ref=e479]:
+              - text: Group
+              - generic "Drag to resize column · double-click to reset" [ref=e480]
+            - columnheader [ref=e482]:
+              - text: m/z (z)
+              - generic "Drag to resize column · double-click to reset" [ref=e483]
+            - columnheader [ref=e485]:
+              - text: RT
+              - generic "Drag to resize column · double-click to reset" [ref=e486]
+            - columnheader [ref=e488]:
+              - text: Width · Shape
+              - generic "Drag to resize column · double-click to reset" [ref=e489]
+            - columnheader [ref=e491]:
+              - text: Area
+              - generic "Drag to resize column · double-click to reset" [ref=e492]
+            - columnheader [ref=e494]:
+              - text: Height
+              - generic "Drag to resize column · double-click to reset" [ref=e495]
+            - columnheader [ref=e497]:
+              - text: Actions
+              - generic "Drag to resize column · double-click to reset" [ref=e498]
+        - rowgroup [ref=e500]:
+          - row [ref=e501]:
+            - cell [ref=e502]:
+              - checkbox "Select for mass actions" [ref=e503] [cursor=pointer]
+            - cell [ref=e504]:
+              - button "Deactivate peak" [ref=e505]
+            - cell "Weak Analyte" [ref=e509]:
+              - generic "Weak Analyte" [ref=e514]
+            - cell "Ungrouped" [ref=e515]:
+              - combobox [ref=e516] [cursor=pointer]:
+                - option "Ungrouped" [selected]
+            - cell "200.0500 z+1" [ref=e517]:
+              - generic [ref=e518]:
+                - generic [ref=e519]: "200.0500"
+                - generic [ref=e520]: z+1
+            - cell [ref=e521]:
+              - button "5.00 min (300s)" [ref=e522]:
+                - generic [ref=e526]: 5.00 min
+                - generic [ref=e527]: (300s)
+            - cell "12.0s gaussian" [ref=e528]:
+              - generic [ref=e529]:
+                - generic [ref=e530]: 12.0s
+                - generic [ref=e531]: gaussian
+            - cell "565,232" [ref=e532]:
+              - generic "565,232 (5.65e+5)" [ref=e533]: 565,232
+            - cell "44,250" [ref=e534]
+            - cell [ref=e536]:
+              - generic [ref=e537]:
+                - button "Open MS/MS Tandem MS Studio for this peak" [ref=e538]
+                - button "Add Isotope Tracing Label (M+X)" [ref=e541]
+                - button "Edit Peak Details" [ref=e546]
+                - button "Duplicate Peak" [ref=e549]
+                - button "Delete Peak" [ref=e553]
+          - row [ref=e557]:
+            - cell [ref=e558]:
+              - checkbox "Select for mass actions" [ref=e559] [cursor=pointer]
+            - cell [ref=e560]:
+              - button "Deactivate peak" [ref=e561]
+            - cell "Mid Analyte" [ref=e565]:
+              - generic "Mid Analyte" [ref=e570]
+            - cell "Ungrouped" [ref=e571]:
+              - combobox [ref=e572] [cursor=pointer]:
+                - option "Ungrouped" [selected]
+            - cell "200.0500 z+1" [ref=e573]:
+              - generic [ref=e574]:
+                - generic [ref=e575]: "200.0500"
+                - generic [ref=e576]: z+1
+            - cell [ref=e577]:
+              - button "7.00 min (420s)" [ref=e578]:
+                - generic [ref=e582]: 7.00 min
+                - generic [ref=e583]: (420s)
+            - cell "12.0s gaussian" [ref=e584]:
+              - generic [ref=e585]:
+                - generic [ref=e586]: 12.0s
+                - generic [ref=e587]: gaussian
+            - cell "31,934" [ref=e588]:
+              - generic "31,934 (3.19e+4)" [ref=e589]: 31,934
+            - cell "2,500" [ref=e590]
+            - cell [ref=e592]:
+              - generic [ref=e593]:
+                - button "Open MS/MS Tandem MS Studio for this peak" [ref=e594]
+                - button "Add Isotope Tracing Label (M+X)" [ref=e597]
+                - button "Edit Peak Details" [ref=e602]
+                - button "Duplicate Peak" [ref=e605]
+                - button "Delete Peak" [ref=e609]
+          - row [ref=e613]:
+            - cell [ref=e614]:
+              - checkbox "Select for mass actions" [ref=e615] [cursor=pointer]
+            - cell [ref=e616]:
+              - button "Deactivate peak" [ref=e617]
+            - cell "Strong Analyte" [ref=e621]:
+              - generic "Strong Analyte" [ref=e626]
+            - cell "Ungrouped" [ref=e627]:
+              - combobox [ref=e628] [cursor=pointer]:
+                - option "Ungrouped" [selected]
+            - cell "200.0500 z+1" [ref=e629]:
+              - generic [ref=e630]:
+                - generic [ref=e631]: "200.0500"
+                - generic [ref=e632]: z+1
+            - cell [ref=e633]:
+              - button "9.00 min (540s)" [ref=e634]:
+                - generic [ref=e638]: 9.00 min
+                - generic [ref=e639]: (540s)
+            - cell "12.0s gaussian" [ref=e640]:
+              - generic [ref=e641]:
+                - generic [ref=e642]: 12.0s
+                - generic [ref=e643]: gaussian
+            - cell "31,934" [ref=e644]:
+              - generic "31,934 (3.19e+4)" [ref=e645]: 31,934
+            - cell "2,500" [ref=e646]
+            - cell [ref=e648]:
+              - generic [ref=e649]:
+                - button "Open MS/MS Tandem MS Studio for this peak" [ref=e650]
+                - button "Add Isotope Tracing Label (M+X)" [ref=e653]
+                - button "Edit Peak Details" [ref=e658]
+                - button "Duplicate Peak" [ref=e661]
+                - button "Delete Peak" [ref=e665]
+    - generic [ref=e669]:
+      - generic [ref=e670]:
+        - generic [ref=e671]: mzML & mzXML Export
+        - paragraph [ref=e677]:
+          - text: Export generated datasets as
+          - strong [ref=e678]: mzML 1.1.0
+          - text: (little-endian base64 peak arrays and CV parameters) or
+          - strong [ref=e679]: mzXML 3.2
+          - text: ", plus tabular CSV files with m/z, intensity, group, and annotation columns."
+      - generic [ref=e680]:
+        - generic [ref=e681]: Peak Grouping & Annotations
+        - paragraph [ref=e686]: Organize defined peaks into color-coded groups you create (e.g. target analytes, internal standards, QC) and attach text annotations to individual peaks or groups.
+      - generic [ref=e687]:
+        - generic [ref=e688]: CSV Import & Export
+        - paragraph [ref=e693]: Upload a CSV compound list to define chromatographic peaks. A headers-only template download documents the required and optional columns and their units.
+  - contentinfo [ref=e694]:
+    - generic [ref=e695]:
+      - generic [ref=e696]:
+        - img "isotopiq"
+        - generic [ref=e697]:
+          - strong [ref=e698]: isotopiq
+          - text: • Mass Spectrometry Dataset Designer
+      - generic [ref=e699]: mzML 1.1.0 • mzXML 3.2 • MSP • MGF • CSV Export
