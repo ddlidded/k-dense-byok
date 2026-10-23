@@ -451,13 +451,108 @@ function providerDisplayName(providerId: string): string {
  * OAuth-only providers require the login, so an ambient token is never
  * silently treated as subscription access.
  */
+async function fetchLocalProbe(
+  providerId: string,
+  label: string,
+  baseUrl: string,
+  path: string,
+  init?: RequestInit,
+): Promise<Response> {
+  let response: Response;
+  try {
+    response = await fetch(`${baseUrl.replace(/\/+$/, "")}${path}`, {
+      signal: AbortSignal.timeout(2_000),
+      ...init,
+    });
+  } catch {
+    throw new ModelAuthenticationError(
+      providerId,
+      `${label} at ${baseUrl} is not responding. Start the local model server or choose another model.`,
+    );
+  }
+  if (!response.ok) {
+    throw new ModelAuthenticationError(
+      providerId,
+      `${label} at ${baseUrl} returned HTTP ${response.status}. Check the local model server or choose another model.`,
+    );
+  }
+  return response;
+}
+
+async function assertLocalModelServer(model: Model<Api>): Promise<void> {
+  if (model.provider === "ollama") {
+    const baseUrl = ollamaBaseUrl();
+    await fetchLocalProbe(model.provider, "Ollama", baseUrl, "/api/tags");
+    let response: Response;
+    try {
+      response = await fetch(`${baseUrl.replace(/\/+$/, "")}/api/show`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ name: model.id }),
+        signal: AbortSignal.timeout(2_000),
+      });
+    } catch {
+      throw new ModelAuthenticationError(
+        model.provider,
+        `Ollama at ${baseUrl} is not responding. Start the local model server or choose another model.`,
+      );
+    }
+    if (!response.ok) {
+      throw new ModelResolutionError(
+        `Ollama model "${model.id}" is not available at ${baseUrl}. Pull it or choose another model.`,
+      );
+    }
+    const info = (await response.json().catch(() => null)) as {
+      parameters?: string;
+    } | null;
+    const effectiveContext = Number(
+      info?.parameters?.match(/^\s*num_ctx\s+(\d+)\s*$/m)?.[1],
+    );
+    if (Number.isFinite(effectiveContext) && effectiveContext > 0) {
+      model.contextWindow = effectiveContext;
+    }
+    return;
+  }
+
+  const baseUrl = openaiCompatibleBaseUrl();
+  const response = await fetchLocalProbe(
+    model.provider,
+    "OpenAI-compatible",
+    baseUrl,
+    "/v1/models",
+  );
+  const body = (await response.json().catch(() => null)) as {
+    data?: unknown;
+  } | null;
+  if (!Array.isArray(body?.data)) {
+    throw new ModelAuthenticationError(
+      model.provider,
+      `OpenAI-compatible endpoint ${baseUrl} did not return a model list. Check OPENAI_COMPATIBLE_BASE_URL or choose another model.`,
+    );
+  }
+  const available = body.data.some(
+    (entry) =>
+      typeof entry === "object" &&
+      entry !== null &&
+      (entry as { id?: unknown }).id === model.id,
+  );
+  if (!available) {
+    throw new ModelResolutionError(
+      `OpenAI-compatible model "${model.id}" is not available at ${baseUrl}. Load it or choose another model.`,
+    );
+  }
+}
+
 export async function assertModelAuthentication(
   model: Model<Api>,
   modelRuntime: ModelRuntime,
 ): Promise<void> {
   // Local servers authenticate with a placeholder credential, so there is no
   // real auth state to assert — reachability is the only failure mode.
-  if (model.provider === "ollama" || model.provider === "openai-compatible") return;
+  if (model.provider === "ollama" || model.provider === "openai-compatible") {
+    await assertLocalModelServer(model);
+    return;
+  }
   const auth = await modelRuntime.checkAuth(model.provider);
   const name = providerDisplayName(model.provider);
   if (!auth) {

@@ -275,6 +275,33 @@ const DIRECT_PROVIDER_ENV_VARS = [
 
 /** Warn when no immediately detectable model source is configured. */
 async function checkModelAccess() {
+  // A *set* endpoint var is not proof the endpoint is up — a dead local model
+  // server makes every chat fail. Probe configured endpoints and say so.
+  for (const [label, base, probe] of [
+    ...(process.env.OPENAI_COMPATIBLE_BASE_URL
+      ? [
+          [
+            "OpenAI-compatible",
+            process.env.OPENAI_COMPATIBLE_BASE_URL,
+            "/v1/models",
+          ],
+        ]
+      : []),
+    // Only when the user configured Ollama; the default is probed below in
+    // the "nothing configured" path.
+    ...(process.env.OLLAMA_BASE_URL
+      ? [["Ollama", process.env.OLLAMA_BASE_URL, "/api/tags"]]
+      : []),
+  ]) {
+    try {
+      await fetch(`${base.replace(/\/+$/, "")}${probe}`, {
+        signal: AbortSignal.timeout(2000),
+      });
+    } catch {
+      log(`  ${sym.warn} ${label} endpoint ${base} is not responding —`);
+      log("    chat replies will fail until it is running.");
+    }
+  }
   if (
     process.env.OPENROUTER_API_KEY ||
     process.env.OR_API_KEY ||

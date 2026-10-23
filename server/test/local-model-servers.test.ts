@@ -6,7 +6,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import { afterAll, afterEach, beforeEach, describe, expect, it } from "vitest";
+import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { setCredentialEnvPathForTests } from "../src/api/credentials.ts";
 import {
@@ -15,7 +15,11 @@ import {
   openaiCompatibleBaseUrl,
   openaiCompatibleConfigured,
 } from "../src/config.ts";
-import { registerLocalProviders, resolveModel } from "../src/agent/models.ts";
+import {
+  assertModelAuthentication,
+  registerLocalProviders,
+  resolveModel,
+} from "../src/agent/models.ts";
 import { getModelRegistry, getModelRuntime } from "../src/agent/session-registry.ts";
 import { buildApp } from "../src/index.ts";
 
@@ -66,6 +70,46 @@ describe("local model-server URLs", () => {
     const status = (await app.inject({ url: "/credentials" })).json();
     expect(status.ollamaBaseUrl).toEqual({ set: false, masked: null });
     expect(status.openaiCompatibleBaseUrl).toEqual({ set: false, masked: null });
+  });
+
+  it("checks Ollama reachability before a run uses it", async () => {
+    process.env.OLLAMA_BASE_URL = "http://gpu-box:11434/";
+    const fetchProbe = vi.fn(async (url: unknown) => {
+      if (url === "http://gpu-box:11434/api/tags") {
+        return new Response(JSON.stringify({ models: [{ name: "llama3" }] }), { status: 200 });
+      }
+      expect(url).toBe("http://gpu-box:11434/api/show");
+      return new Response(
+        JSON.stringify({ parameters: "num_ctx                        8192" }),
+        { status: 200 },
+      );
+    });
+    vi.stubGlobal("fetch", fetchProbe);
+    const model = resolveModel("ollama/llama3", getModelRegistry());
+    try {
+      await expect(
+        assertModelAuthentication(model, getModelRuntime()),
+      ).resolves.toBeUndefined();
+    } finally {
+      vi.unstubAllGlobals();
+    }
+    expect(fetchProbe).toHaveBeenCalledTimes(2);
+    expect(model.contextWindow).toBe(8192);
+  });
+
+  it("rejects an Ollama run quickly when the endpoint is down", async () => {
+    process.env.OLLAMA_BASE_URL = "http://gpu-box:11434";
+    vi.stubGlobal("fetch", vi.fn(async () => Promise.reject(new Error("connect refused"))));
+    try {
+      await expect(
+        assertModelAuthentication(
+          resolveModel("ollama/llama3", getModelRegistry()),
+          getModelRuntime(),
+        ),
+      ).rejects.toThrow(/Ollama .* is not responding/);
+    } finally {
+      vi.unstubAllGlobals();
+    }
   });
 
   it("saves a URL to .env and process.env, echoes it unmasked, and re-registers", async () => {

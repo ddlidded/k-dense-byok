@@ -789,6 +789,27 @@ export async function registerSessionRoutes(app: FastifyInstance): Promise<void>
             error instanceof ModelAuthenticationError ? "provider_not_connected" : "invalid_model",
         };
       }
+      // Local providers can report a much smaller effective context than the
+      // synthesized 32K default (Ollama's num_ctx). Reject a session that is
+      // already over the selected model's window instead of letting the
+      // provider sit for minutes and then fail the prompt.
+      const currentTokens = session.getContextUsage()?.tokens;
+      if (
+        typeof currentTokens === "number" &&
+        requestedModel.contextWindow > 0 &&
+        currentTokens >= requestedModel.contextWindow
+      ) {
+        claim.release();
+        reply.code(413);
+        return {
+          detail:
+            `This session is already using about ${currentTokens.toLocaleString("en-US")} ` +
+            `tokens, but ${modelReference(requestedModel)} has a ` +
+            `${requestedModel.contextWindow.toLocaleString("en-US")} token context window. ` +
+            "Start a new chat or choose a larger-context model.",
+          reason: "context_too_large",
+        };
+      }
       // For a Fusion run we disable Pi's local tools for the turn (see below).
       // Remember the real active set so we can restore it in cleanup; `null`
       // means "not a fusion run, nothing to restore".

@@ -24,7 +24,8 @@ class FakeSession {
   clearQueueCalls = 0;
   calls: string[] = [];
   state: { errorMessage?: string } = {};
-  model = { id: "fake-model", provider: "openrouter" };
+  model = { id: "fake-model", provider: "openrouter", contextWindow: 1_000 };
+  contextUsage = { tokens: 12, contextWindow: 1_000, percent: 1.2 };
   messages = [
     {
       role: "assistant",
@@ -77,7 +78,7 @@ class FakeSession {
     this.emit({ type: "agent_settled" });
   }
   getContextUsage() {
-    return { tokens: 12, contextWindow: 1_000, percent: 1.2 };
+    return this.contextUsage;
   }
   getSessionStats() {
     return {
@@ -278,7 +279,7 @@ describe("POST /sessions/:id/steer", () => {
   });
 });
 
-describe("POST /sessions/:id/run image validation", () => {
+describe("POST /sessions/:id/run preflight", () => {
   function run(id: string, body: unknown) {
     return app.inject({
       method: "POST",
@@ -307,6 +308,20 @@ describe("POST /sessions/:id/run image validation", () => {
     const res = await run("s1", { message: "hi", images: [{ mimeType: "image/png" }] });
     expect(res.statusCode).toBe(400);
     expect(res.json().detail).toContain("base64");
+  });
+
+  it("413s before starting a run whose session already exceeds the model context", async () => {
+    const s = new FakeSession();
+    s.isStreaming = false;
+    s.contextUsage = { tokens: 1_200, contextWindow: 1_000, percent: 120 };
+    fakeSessions.set("s1", s);
+
+    const res = await run("s1", { message: "hi" });
+
+    expect(res.statusCode).toBe(413);
+    expect(res.json()).toMatchObject({ reason: "context_too_large" });
+    expect(res.json().detail).toContain("1,200");
+    expect(s.promptCalls).toHaveLength(0);
   });
 });
 

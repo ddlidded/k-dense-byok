@@ -65,11 +65,34 @@ describe("resolveModel (openai-compatible refs)", () => {
     );
   });
 
-  it("needs no provider auth (the credential is a placeholder)", async () => {
+  it("probes the local server instead of provider auth", async () => {
     const runtime = { checkAuth: vi.fn() };
-    await expect(
-      assertModelAuthentication(buildOpenAICompatibleModel("qwen3-8b"), runtime as never),
-    ).resolves.toBeUndefined();
+    const fetchProbe = vi.fn(async (url: unknown) => {
+      expect(url).toBe("http://localhost:1234/v1/models");
+      return new Response(JSON.stringify({ data: [{ id: "qwen3-8b" }] }), { status: 200 });
+    });
+    vi.stubGlobal("fetch", fetchProbe);
+    try {
+      await expect(
+        assertModelAuthentication(buildOpenAICompatibleModel("qwen3-8b"), runtime as never),
+      ).resolves.toBeUndefined();
+    } finally {
+      vi.unstubAllGlobals();
+    }
+    expect(fetchProbe).toHaveBeenCalledOnce();
+    expect(runtime.checkAuth).not.toHaveBeenCalled();
+  });
+
+  it("fails fast when the local server is unavailable", async () => {
+    const runtime = { checkAuth: vi.fn() };
+    vi.stubGlobal("fetch", vi.fn(async () => Promise.reject(new Error("connect refused"))));
+    try {
+      await expect(
+        assertModelAuthentication(buildOpenAICompatibleModel("qwen3-8b"), runtime as never),
+      ).rejects.toThrow(/OpenAI-compatible .* is not responding/);
+    } finally {
+      vi.unstubAllGlobals();
+    }
     expect(runtime.checkAuth).not.toHaveBeenCalled();
   });
 });

@@ -170,6 +170,32 @@ describe("useAgent notebook accumulation", () => {
     });
   });
 
+  it("shows the backend detail when run preflight fails", async () => {
+    vi.spyOn(projects, "apiFetch").mockImplementation(async (path: string) => {
+      if (path === "/sessions") {
+        return new Response(JSON.stringify({ id: "s1" }), { status: 200 });
+      }
+      if (path === "/sessions/s1/run") {
+        return new Response(
+          JSON.stringify({ detail: "Ollama at http://localhost:11434 is not responding." }),
+          { status: 401 },
+        );
+      }
+      throw new Error(`unexpected apiFetch path: ${path}`);
+    });
+
+    const { result } = renderHook(() => useAgent());
+    await act(async () => {
+      await result.current.send("hi");
+    });
+
+    expect(result.current.status).toBe("error");
+    expect(result.current.runState).toBe("error");
+    expect(result.current.messages.at(-1)?.content).toBe(
+      "Error: Ollama at http://localhost:11434 is not responding.",
+    );
+  });
+
   it("keeps a project-pinned stream alive when the visible project changes", async () => {
     let streamController!: ReadableStreamDefaultController<Uint8Array>;
     let markStarted!: () => void;

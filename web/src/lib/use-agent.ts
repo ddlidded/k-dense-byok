@@ -844,13 +844,18 @@ export function useAgent(projectId?: string) {
     setRunState(consumer.outcome);
   }, [messagePublisher]);
 
-  const failRun = useCallback((consumer: RunConsumer, aborted: boolean) => {
+  const failRun = useCallback((consumer: RunConsumer, aborted: boolean, detail?: string) => {
     consumer.transcript = finishActivities(
       consumer.transcript,
       aborted ? "complete" : "error",
     ).map((message) =>
       message.id === consumer.transcriptState.assistantId && !aborted && !message.content
-        ? { ...message, content: "Something went wrong. Please try again." }
+        ? {
+            ...message,
+            content: detail
+              ? `Error: ${detail}`
+              : "Something went wrong. Please try again.",
+          }
         : message,
     );
     messagePublisher.publish(consumer.transcript);
@@ -1120,7 +1125,11 @@ export function useAgent(projectId?: string) {
           mountedRef.current &&
           activeConsumer
         ) {
-          failRun(activeConsumer, isAbortError(error));
+          failRun(
+            activeConsumer,
+            isAbortError(error),
+            error instanceof Error ? error.message : undefined,
+          );
         }
         // Aborts and transport errors say nothing about whether the session
         // still exists, so the binding stays and the tab can try again.
@@ -1183,7 +1192,11 @@ export function useAgent(projectId?: string) {
         }
       } catch (error) {
         if (clientFetchRef.current === controller && mountedRef.current && consumer) {
-          failRun(consumer, isAbortError(error));
+          failRun(
+            consumer,
+            isAbortError(error),
+            error instanceof Error ? error.message : undefined,
+          );
         }
       } finally {
         if (clientFetchRef.current === controller) clientFetchRef.current = null;
@@ -1463,7 +1476,14 @@ export function useAgent(projectId?: string) {
             throw new Error("run failed: 409");
           }
         }
-        if (!response.ok) throw new Error(`run failed: ${response.status}`);
+        if (!response.ok) {
+          const body = (await response.json().catch(() => ({}))) as { detail?: unknown };
+          throw new Error(
+            typeof body.detail === "string" && body.detail
+              ? body.detail
+              : `run failed: ${response.status}`,
+          );
+        }
         setStatus("streaming");
         await completeRunResponse(id, consumer, controller, response);
         if (clientFetchRef.current === controller && mountedRef.current) finalizeRun(consumer);
@@ -1472,7 +1492,11 @@ export function useAgent(projectId?: string) {
           mountedRef.current &&
           clientFetchRef.current === controller
         ) {
-          failRun(consumer, isAbortError(error));
+          failRun(
+            consumer,
+            isAbortError(error),
+            error instanceof Error ? error.message : undefined,
+          );
         }
       } finally {
         sendClaimRef.current = false;
